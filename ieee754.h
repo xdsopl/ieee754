@@ -82,5 +82,25 @@ long long pNaN(double nan)
 	return 0x7ffffffffffff & double_to_long_long(nan);
 }
 
+int issNaNf(float val)
+{
+	return ((0x7fc00000 & float_to_int(val)) == 0x7f800000) && 0 < pNaNf(val);
+}
+
+int issNaN(double val)
+{
+	return ((0x7ff8000000000000 & double_to_long_long(val)) == 0x7ff0000000000000) && 0 < pNaN(val);
+}
+
+int isqNaNf(float val)
+{
+	return ((0x7fc00000 & float_to_int(val)) == 0x7fc00000);
+}
+
+int isqNaN(double val)
+{
+	return ((0x7ff8000000000000 & double_to_long_long(val)) == 0x7ff8000000000000);
+}
+
 #endif
 
