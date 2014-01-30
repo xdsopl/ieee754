@@ -8,6 +8,16 @@ You should have received a copy of the CC0 Public Domain Dedication along with t
 #ifndef IEEE754_H
 #define IEEE754_H
 
+#define minqNaN (0)
+#define minsNaN (1)
+#define minqNaNf (0)
+#define minsNaNf (1)
+
+#define maxqNaN (0x7ffffffffffff)
+#define maxsNaN (0x7ffffffffffff)
+#define maxqNaNf (0x3fffff)
+#define maxsNaNf (0x3fffff)
+
 double long_long_to_double(long long ll)
 {
 	union {
@@ -48,25 +58,25 @@ int float_to_int(float f)
 	return c.i;
 }
 
-// 0 < payload < 0x400000
+// minsNaNf <= payload <= maxsNaNf
 float sNaNf(int payload)
 {
 	return int_to_float(0x7f800000 | payload);
 }
 
-// 0 < payload < 0x8000000000000
+// minsNaN <= payload <= maxsNaN
 double sNaN(long long payload)
 {
 	return long_long_to_double(0x7ff0000000000000 | payload);
 }
 
-// 0 <= payload < 0x400000
+// minqNaNf <= payload <= maxqNaNf
 float qNaNf(int payload)
 {
 	return int_to_float(0x7fc00000 | payload);
 }
 
-// 0 <= payload < 0x8000000000000
+// minqNaN <= payload <= maxqNaN
 double qNaN(long long payload)
 {
 	return long_long_to_double(0x7ff8000000000000 | payload);
